@@ -90,38 +90,14 @@ public class ItemHorseFood extends Item {
                     //donkey and mule ignored by design
             }
         } else if(held.getItem() == ItemRegistry.lapisCarrot) {
-            int var = horse.getHorseVariant();
-            int var_reduced = 0;
-            int var_new = 0;
-            while(var - 256 > 0) {
-                var_reduced += 256; // this could be done with modulo % arithmetic too, but meh doesnt matter either way
-                var -= 256;
-            } // invalid numbers make horse invisible, but this is somehow safe. and easier than doing bitwise ops
-            switch(var) {
-                case Horse.variant_black:
-                    var_new = Horse.variant_brown;
-                    break;
-                case Horse.variant_brown:
-                    var_new = Horse.variant_brown_dark;
-                    break;
-                case Horse.variant_brown_dark:
-                    var_new = Horse.variant_chestnut;
-                    break;
-                case Horse.variant_chestnut:
-                    var_new = Horse.variant_creamy;
-                    break;
-                case Horse.variant_creamy:
-                    var_new = Horse.variant_gray;
-                    break;
-                case Horse.variant_gray:
-                    var_new = Horse.variant_white;
-                    break;
-                case Horse.variant_white:
-                    var_new = Horse.variant_black;
-                    break;
+            int variant = horse.getHorseVariant();
+            if(variant > 1023 && variant < 1030) {
+                horse.setHorseVariant(variant % 1024 + 1);
+            } else if(variant == 1030 || variant > 1030) {
+                horse.setHorseVariant(0);
+            } else {
+                horse.setHorseVariant(variant + 256);
             }
-            var_new += var_reduced;
-            horse.setHorseVariant(var_new);
             success = true;
         } else if(held.getItem() == ItemRegistry.diamondCarrot) {
             float mh = (float) horse.getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
@@ -164,23 +140,15 @@ public class ItemHorseFood extends Item {
                 double y = horse.posY;
                 double z = horse.posZ;
 
-                horse.worldObj.spawnParticle("largesmoke", x + (horse.worldObj.rand.nextDouble() - 0.5D) * 0.8, y + horse.worldObj.rand.nextDouble() * 1.5 - 0.1, z + (horse.worldObj.rand.nextDouble() - 0.5D) * 0.8, 0.0D, 0.0D, 0.0D);
+                horse.worldObj.spawnParticle("largesmoke", x + (horse.worldObj.rand.nextDouble() - 0.5) * 0.8, y + horse.worldObj.rand.nextDouble() * 1.5 - 0.1, z + (horse.worldObj.rand.nextDouble() - 0.5) * 0.8, 0.0, 0.0, 0.0);
             }
 
-            player.worldObj.playSoundAtEntity(player, "random.eat", 1.0F, 1.0F);
+            player.worldObj.playSoundAtEntity(player, "random.eat", 1.0f, 1.0f);
             horse.setEating(true); // makes horse animate and bend down to eat
         }
     }
 
     public static class Horse {
-        public static final int variant_white = 0;
-        public static final int variant_creamy = 1;
-        public static final int variant_chestnut = 2;
-        public static final int variant_brown = 3;
-        public static final int variant_black = 4;
-        public static final int variant_gray = 5;
-        public static final int variant_brown_dark = 6;
-
         public static final int type_standard = 0;
         public static final int type_donkey = 1;
         public static final int type_mule = 2;

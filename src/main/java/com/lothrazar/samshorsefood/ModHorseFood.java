@@ -146,7 +146,7 @@ __ field_110276_bu
             if(player.ridingEntity != null && player.ridingEntity instanceof EntityHorse) {
                 EntityHorse horse = (EntityHorse)player.ridingEntity;
 
-                double speed = getSpeedTranslated(horse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
+                double speed = horse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue() * 43.1718;
 
                 //double jump = horse.getHorseJumpStrength() ;
                 //convert from scale factor to blocks
@@ -154,11 +154,13 @@ __ field_110276_bu
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                event.left.add(StatCollector.translateToLocal("debug.horsespeed")+" "+ df.format(speed));
+                event.left.add(StatCollector.translateToLocal("debug.horse.speed")+": "+ df.format(speed)+" m/s");
 
                 df = new DecimalFormat("0.0");
 
-                event.left.add(StatCollector.translateToLocal("debug.horsejump")+" "+ df.format(jumpHeight));
+                event.left.add(StatCollector.translateToLocal("debug.horse.jump")+": "+ df.format(jumpHeight)+" m");
+
+                event.left.add(StatCollector.translateToLocal("debug.horse.variant")+": "+ horse.getHorseVariant());
             }
         }
     }

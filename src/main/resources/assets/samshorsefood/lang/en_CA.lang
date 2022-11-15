@@ -1,15 +1,17 @@
 itemGroup.tabHorseFood=Horse Food
-item.horse_upgrade_health.name=Diamond Carrot
+
 item.horse_upgrade_type.name=Emerald Carrot
 item.horse_upgrade_variant.name=Lapis Carrot
-item.horse_upgrade_speed.name=s Carrot
-item.horse_upgrade_jump.name=j Carrot
-item.horse_upgrade_health.effect=Health
+item.horse_upgrade_health.name=Diamond Carrot
+item.horse_upgrade_speed.name=Redstone carrot
+item.horse_upgrade_jump.name=Ender Carrot
+
 item.horse_upgrade_type.effect=Type
 item.horse_upgrade_variant.effect=Variant
+item.horse_upgrade_health.effect=Health
 item.horse_upgrade_speed.effect=Speed
-item.horse_upgrade_speed.name=Redstone carrot
 item.horse_upgrade_jump.effect=Jump
-item.horse_upgrade_jump.name=Ender Carrot
-debug.horsespeed=Horse Speed:
-debug.horsejump=Horse Jump:
+
+debug.horse.speed=Horse Speed
+debug.horse.jump=Horse Jump
+debug.horse.variant=Horse Variant

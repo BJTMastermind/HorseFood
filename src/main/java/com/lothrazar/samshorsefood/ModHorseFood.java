@@ -1,6 +1,7 @@
 package com.lothrazar.samshorsefood;
 
 import java.lang.reflect.Field;
+import java.lang.Math;
 import java.text.DecimalFormat;
 
 import org.apache.logging.log4j.Logger;
@@ -54,41 +55,12 @@ public class ModHorseFood {
 
         cfg = new ConfigRegistry(new Configuration(event.getSuggestedConfigurationFile()));
 
-        //version 1.1.0
-        //new item for speed
-        //new item for jump
-
-        // TODO: new config for recipe expense - surround or single
-        //new config for speed/jump/health the max value of each.
-        /*__ field_110276_bu
-__ field_110276_bu
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110271_bv
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110270_bw
-[18:28:18] [Client thread/INFO] [STDERR/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:80]: Severe error, please report this to the mod author:
-[18:28:18] [Client thread/INFO] [STDERR/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:81]: java.lang.ClassCastException: [Ljava.lang.String; cannot be cast to net.minecraft.entity.ai.attributes.IAttribute
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110273_bx
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110272_by
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110268_bz
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110269_bA
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110291_bB
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110292_bC
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110289_bD
-[18:28:18] [Client thread/INFO] [STDOUT/samshorsefood]: [com.lothrazar.samshorsefood.ModHorseFood:onPreInit:67]: __ field_110290_bE
-*/
         for(Field f : EntityHorse.class.getDeclaredFields()) {
             try {
-                //if(f.get(null) instanceof IAttribute)
-                //System.out.println("== "+f.getName()+" ** "+f.getType());
-
-                //interface net.minecraft.entity.ai.attributes.IAttribute
-
-                if(f.getName().equals("horseJumpStrength") || f.getName().equals("field_110270_bw") ||
-                        "interface net.minecraft.entity.ai.attributes.IAttribute".equals(f.getType()+"")) { // TODO: old 1.7 was field_76425_a
-
+                if(f.getName().equals("horseJumpStrength")) {
                     f.setAccessible(true);
                     // save pointer to the obj so we can reference it later
                     ModHorseFood.horseJumpStrength = (IAttribute)f.get(null);
-                    // System.err.println("FOUND FOUND FOUND");
                     break;
                 }
             } catch(Exception e) {
@@ -116,14 +88,13 @@ __ field_110276_bu
             if(event.target instanceof EntityHorse) {
                 ItemHorseFood.onHorseInteract((EntityHorse) event.target, event.entityPlayer, held);
 
-                event.setCanceled(true); //stop the GUI inventory opening
+                event.setCanceled(true); // stop the GUI inventory opening
             }
         }
     }
 
     static double getJumpTranslated(double jump) {
-        //double jump = horse.getHorseJumpStrength();
-        //convert from scale factor to blocks
+        // convert from scale factor to blocks
         double jumpHeight = 0;
         double gravity = 0.98;
         while (jump > 0) {
@@ -144,23 +115,20 @@ __ field_110276_bu
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if(Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             if(player.ridingEntity != null && player.ridingEntity instanceof EntityHorse) {
-                EntityHorse horse = (EntityHorse)player.ridingEntity;
+                EntityHorse horse = (EntityHorse) player.ridingEntity;
 
                 double speed = horse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue() * 43.1718;
-
-                //double jump = horse.getHorseJumpStrength() ;
-                //convert from scale factor to blocks
                 double jumpHeight = getJumpTranslated(horse.getHorseJumpStrength());
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                event.left.add(StatCollector.translateToLocal("debug.horse.speed")+": "+ df.format(speed)+" m/s");
+                event.left.add(StatCollector.translateToLocal("debug.horse.speed")+": "+df.format(speed)+" m/s");
 
                 df = new DecimalFormat("0.0");
 
-                event.left.add(StatCollector.translateToLocal("debug.horse.jump")+": "+ df.format(jumpHeight)+" m");
+                event.left.add(StatCollector.translateToLocal("debug.horse.jump")+": "+df.format(jumpHeight)+" m");
 
-                event.left.add(StatCollector.translateToLocal("debug.horse.variant")+": "+ horse.getHorseVariant());
+                event.left.add(StatCollector.translateToLocal("debug.horse.variant")+": "+horse.getHorseVariant());
             }
         }
     }

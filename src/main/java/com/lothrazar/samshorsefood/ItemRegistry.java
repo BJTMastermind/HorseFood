@@ -26,15 +26,14 @@ public class ItemRegistry {
         diamondCarrot = new ItemHorseFood();
         ItemRegistry.registerItem(diamondCarrot, "horse_upgrade_health");
 
-        enderCarrot = new ItemHorseFood();
-        ItemRegistry.registerItem(enderCarrot, "horse_upgrade_jump");
-
         redstoneCarrot = new ItemHorseFood();
         ItemRegistry.registerItem(redstoneCarrot, "horse_upgrade_speed");
 
+        enderCarrot = new ItemHorseFood();
+        ItemRegistry.registerItem(enderCarrot, "horse_upgrade_jump");
+
         ItemHorseFood.addRecipes();
     }
-
 
     public static void registerItem(Item item, String name) {
          item.setUnlocalizedName(name).setTextureName(TEXTURE_LOCATION+item.getUnlocalizedName().replace("item.", ""));

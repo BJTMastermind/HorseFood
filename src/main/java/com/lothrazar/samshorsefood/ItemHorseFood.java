@@ -17,8 +17,8 @@ public class ItemHorseFood extends Item {
     public static int HEARTS_MAX;
     public static int SPEED_MAX;
     public static int JUMP_MAX;
-    private static double JUMP_SCALE = 1.02; //%age
-    private static double SPEED_SCALE = 1.05; //%age
+    private static double JUMP_SCALE = 1.02;
+    private static double SPEED_SCALE = 1.05;
 
     public ItemHorseFood() {
         super();
@@ -30,7 +30,7 @@ public class ItemHorseFood extends Item {
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
         if(stack == null || stack.getItem() == null) {
             return;
-        } //just being safe
+        } // just being safe
 
         Item carrot = stack.getItem();
         tooltip.add(StatCollector.translateToLocal(carrot.getUnlocalizedName(stack)+".effect"));
@@ -62,16 +62,6 @@ public class ItemHorseFood extends Item {
 
     public static void onHorseInteract(EntityHorse horse, EntityPlayer player, ItemStack held) {
         boolean success = false;
-        /*
-        String ownerID = "..untamed..";
-        if(horse.isTame() && horse.getEntityData().hasKey("OwnerUUID")) {
-            ownerID = horse.getEntityData().getString("OwnerUUID");
-        }
-
-        // or let it through if no owner exists
-        ("owner = "+ownerID);
-        ("player = "+player.getUniqueID().toString());
-        */
 
         if(held.getItem() == ItemRegistry.emeraldCarrot) {
             switch(horse.getHorseType()) {
@@ -87,7 +77,7 @@ public class ItemHorseFood extends Item {
                     horse.setHorseType(Horse.type_standard);
                     success = true;
                     break;
-                    //donkey and mule ignored by design
+                    // donkey and mule ignored by design
             }
         } else if(held.getItem() == ItemRegistry.lapisCarrot) {
             int variant = horse.getHorseVariant();
@@ -108,13 +98,11 @@ public class ItemHorseFood extends Item {
             }
         } else if(held.getItem() == ItemRegistry.enderCarrot) {
             if(ModHorseFood.horseJumpStrength != null) { // only happpens if mod installing preInit method fails to find it
-                double jump = horse.getEntityAttribute(ModHorseFood.horseJumpStrength).getAttributeValue();//horse.getHorseJumpStrength();
+                double jump = horse.getEntityAttribute(ModHorseFood.horseJumpStrength).getAttributeValue();
                 double newjump = jump * JUMP_SCALE;
-                // double jumpHeight = getJumpTranslated(horse.getHorseJumpStrength());
 
                 if(ModHorseFood.getJumpTranslated(newjump) < JUMP_MAX) {
                     horse.getEntityAttribute(ModHorseFood.horseJumpStrength).setBaseValue(newjump);
-                    // System.out.println("newjump = "+newjump);
                     success = true;
                 }
             }
@@ -125,7 +113,6 @@ public class ItemHorseFood extends Item {
             // add ten percent
             if(ModHorseFood.getSpeedTranslated(newSpeed) < SPEED_MAX) {
                 horse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(newSpeed);
-                //System.out.println("speed = "+newSpeed);
                 success = true;
             }
         }

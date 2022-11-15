@@ -12,11 +12,13 @@
 
 # Gradle
 /.gradle/
+*.log
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Others
+*.directory
 *.jar
 /build/
 /bin/

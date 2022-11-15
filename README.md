@@ -18,7 +18,7 @@
 ### Ender Carrot
 * Increases the horse jump height.
 
-There is a config file "samshorsefood.cfg" that will let you control the horses maximum health, jump, and speed values.
+There is a config file called "samshorsefood.cfg" that will let you control the horses maximum health, jump, and speed values.
 
 ## Credits
 * Lothrazar (Original Creator of 1.8+ versions found [here](https://www.curseforge.com/minecraft/mc-mods/horse-upgrades))

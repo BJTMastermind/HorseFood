@@ -1,7 +1,6 @@
 package com.lothrazar.samshorsefood;
 
 import java.lang.reflect.Field;
-import java.lang.Math;
 import java.text.DecimalFormat;
 
 import org.apache.logging.log4j.Logger;

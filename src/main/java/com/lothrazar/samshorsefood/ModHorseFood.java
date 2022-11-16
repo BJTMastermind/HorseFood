@@ -56,7 +56,9 @@ public class ModHorseFood {
 
         for(Field f : EntityHorse.class.getDeclaredFields()) {
             try {
-                if(f.getName().equals("horseJumpStrength")) {
+                if(f.getName().equals("horseJumpStrength") || f.getName().equals("field_110270_bw") ||
+                    "interface net.minecraft.entity.ai.attributes.IAttribute".equals(f.getType()+"")) {
+
                     f.setAccessible(true);
                     // save pointer to the obj so we can reference it later
                     ModHorseFood.horseJumpStrength = (IAttribute)f.get(null);

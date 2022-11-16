@@ -1,14 +1,10 @@
 package com.lothrazar.samshorsefood;
 
-import java.util.ArrayList;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
 public class ItemRegistry {
     public static final String TEXTURE_LOCATION = ModHorseFood.MODID + ":";
-
-    public static ArrayList<Item> items = new ArrayList<Item>();
 
     public static ItemHorseFood emeraldCarrot;
     public static ItemHorseFood lapisCarrot;
@@ -38,7 +34,5 @@ public class ItemRegistry {
     public static void registerItem(Item item, String name) {
          item.setUnlocalizedName(name).setTextureName(TEXTURE_LOCATION+item.getUnlocalizedName().replace("item.", ""));
          GameRegistry.registerItem(item, name);
-
-         items.add(item);
     }
 }
